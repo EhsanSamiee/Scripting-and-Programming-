@@ -1,0 +1,319 @@
+from os import system
+import time
+import sys
+
+# Store 10 sample artefacts when the program starts
+
+artefacts = [
+    ["001", "Old Clock", "Historical", "Antique wall clock", "Room 1", "Available", 1, "1920", "Good condition"],
+    ["002", "Ancient Vase", "Ceramic", "Traditional ceramic vase", "Room 2", "Available", 2, "1850", "No damage"],
+    ["003", "Old Painting", "Artwork", "Landscape painting", "Room 1", "Damaged", 1, "1900", "Small crack"],
+    ["004", "Wooden Chair", "Furniture", "Antique wooden chair", "Room 3", "Available", 3, "1880", "Good condition"],
+    ["005", "Silver Coin", "Currency", "Old silver coin", "Room 2", "Available", 5, "1750", "Slightly worn"],
+    ["006", "Stone Tool", "Historical", "Ancient stone tool", "Room 4", "Damaged", 1, "2000 BC", "Broken edge"],
+    ["007", "Old Book", "Document", "Historical book", "Room 3", "Available", 2, "1925", "Good condition"],
+    ["008", "Bronze Statue", "Artwork", "Small bronze statue", "Room 1", "Available", 1, "1800", "Good condition"],
+    ["009", "Clay Pot", "Ceramic", "Traditional clay pot", "Room 4", "Damaged", 2, "1700", "Cracked"],
+    ["010", "Old Camera", "Equipment", "Vintage camera", "Room 2", "Available", 1, "1960", "Needs cleaning"]
+]
+
+
+# Function to clear the screen
+def clear_screen():
+    system('cls')
+
+
+# Function to display the main menu
+def display_menu():
+    print("\n===== LHC ARTEFACT MANAGEMENT SYSTEM =====")
+    print("1. Add New Artefact")
+    print("2. View All Artefacts")
+    print("3. Search Artefact by Name")
+    print("4. Update Artefact")
+    print("5. Count Total Artefacts")
+    print("6. View Available Artefacts")
+    print("7. Search Artefacts by Category")
+    print("8. Search Artefacts by Location")
+    print("9. View Damaged Artefacts")
+    print("10. Exit Program")
+
+
+# Function to add a new artefact
+def add_artefact():
+    print("\n===== ADD NEW ARTEFACT =====")
+
+    artefact_id = input("Enter Artefact ID: ")
+    name = input("Enter Artefact Name: ")
+    category = input("Enter Category: ")
+    description = input("Enter Description: ")
+    location = input("Enter Display Location: ")
+    condition = input("Enter Condition: ")
+    quantity = input("Enter Quantity: ")
+    year = input("Enter Year: ")
+    notes = input("Enter Notes: ")
+
+    artefact = [artefact_id, name, category, description,
+                location, condition, quantity, year, notes]
+
+    artefacts.append(artefact)
+
+    print("\nArtefact added successfully!")
+    time.sleep(2)
+
+
+# Function to view all artefacts
+def view_all_artefacts():
+    print("\n===== ALL ARTEFACTS =====")
+
+    if len(artefacts) == 0:
+        print("No artefacts found.")
+    else:
+        for artefact in artefacts:
+            print("----------------------------")
+            print("Artefact ID:", artefact[0])
+            print("Name:", artefact[1])
+            print("Category:", artefact[2])
+            print("Description:", artefact[3])
+            print("Location:", artefact[4])
+            print("Condition:", artefact[5])
+            print("Quantity:", artefact[6])
+            print("Year:", artefact[7])
+            print("Notes:", artefact[8])
+
+    time.sleep(2)
+
+
+# Function to search artefact by name
+def search_artefact():
+    print("\n===== SEARCH ARTEFACT =====")
+
+    search_name = input("Enter artefact name to search: ")
+
+    found = False
+
+    for artefact in artefacts:
+        if artefact[1].lower() == search_name.lower():
+            print("\nArtefact found!")
+            print("Artefact ID:", artefact[0])
+            print("Name:", artefact[1])
+            print("Category:", artefact[2])
+            print("Description:", artefact[3])
+            print("Location:", artefact[4])
+            print("Condition:", artefact[5])
+            print("Quantity:", artefact[6])
+            print("Year:", artefact[7])
+            print("Notes:", artefact[8])
+            found = True
+
+    if found == False:
+        print("Artefact not found.")
+
+    time.sleep(2)
+
+
+# Function to update an artefact
+def update_artefact():
+    print("\n===== UPDATE ARTEFACT =====")
+
+    artefact_id = input("Enter Artefact ID to update: ")
+
+    found = False
+
+    for artefact in artefacts:
+        if artefact[0] == artefact_id:
+            print("\nArtefact found!")
+            print("1. Update Quantity")
+            print("2. Update Condition")
+            print("3. Update Details")
+
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                artefact[6] = input("Enter new quantity: ")
+                print("Quantity updated successfully!")
+
+            elif choice == "2":
+                artefact[5] = input("Enter new condition: ")
+                print("Condition updated successfully!")
+
+            elif choice == "3":
+                artefact[3] = input("Enter new description: ")
+                artefact[8] = input("Enter new notes: ")
+                print("Details updated successfully!")
+
+            else:
+                print("Invalid choice.")
+
+            found = True
+            break
+
+    if found == False:
+        print("Artefact not found.")
+
+    time.sleep(2)
+
+
+# Function to count total artefacts
+def count_total_artefacts():
+    print("\n===== TOTAL ARTEFACTS =====")
+
+    total = len(artefacts)
+
+    print("Total number of artefacts:", total)
+
+    time.sleep(2)
+
+
+# Function to view available artefacts
+def view_available_artefacts():
+    print("\n===== AVAILABLE ARTEFACTS =====")
+
+    found = False
+
+    for artefact in artefacts:
+        if artefact[5].lower() == "available":
+            print("----------------------------")
+            print("Artefact ID:", artefact[0])
+            print("Name:", artefact[1])
+            print("Category:", artefact[2])
+            print("Location:", artefact[4])
+            print("Condition:", artefact[5])
+            print("Quantity:", artefact[6])
+            found = True
+
+    if found == False:
+        print("No available artefacts found.")
+
+    time.sleep(2)
+
+
+# Function to search artefacts by category
+def search_by_category():
+    print("\n===== SEARCH BY CATEGORY =====")
+
+    search_category = input("Enter category to search: ")
+
+    found = False
+
+    for artefact in artefacts:
+        if artefact[2].lower() == search_category.lower():
+            print("----------------------------")
+            print("Artefact ID:", artefact[0])
+            print("Name:", artefact[1])
+            print("Category:", artefact[2])
+            print("Description:", artefact[3])
+            print("Location:", artefact[4])
+            print("Condition:", artefact[5])
+            print("Quantity:", artefact[6])
+            print("Year:", artefact[7])
+            print("Notes:", artefact[8])
+            found = True
+
+    if found == False:
+        print("No artefacts found in this category.")
+
+    time.sleep(2)
+
+
+# Function to search artefacts by location
+def search_by_location():
+    print("\n===== SEARCH BY LOCATION =====")
+
+    search_location = input("Enter location to search: ")
+
+    found = False
+
+    for artefact in artefacts:
+        if artefact[4].lower() == search_location.lower():
+            print("----------------------------")
+            print("Artefact ID:", artefact[0])
+            print("Name:", artefact[1])
+            print("Category:", artefact[2])
+            print("Description:", artefact[3])
+            print("Location:", artefact[4])
+            print("Condition:", artefact[5])
+            print("Quantity:", artefact[6])
+            print("Year:", artefact[7])
+            print("Notes:", artefact[8])
+            found = True
+
+    if found == False:
+        print("No artefacts found at this location.")
+
+    time.sleep(2)
+
+
+# Function to view damaged artefacts
+def view_damaged_artefacts():
+    print("\n===== DAMAGED ARTEFACTS =====")
+
+    found = False
+
+    for artefact in artefacts:
+        if artefact[5].lower() == "damaged":
+            print("----------------------------")
+            print("Artefact ID:", artefact[0])
+            print("Name:", artefact[1])
+            print("Category:", artefact[2])
+            print("Description:", artefact[3])
+            print("Location:", artefact[4])
+            print("Condition:", artefact[5])
+            print("Quantity:", artefact[6])
+            print("Year:", artefact[7])
+            print("Notes:", artefact[8])
+            found = True
+
+    if found == False:
+        print("No damaged artefacts found.")
+
+    time.sleep(2)
+
+
+# Main function
+def main():
+    while True:
+        clear_screen()
+        display_menu()
+
+        choice = input("\nEnter your choice (1-10): ")
+
+        if choice == "1":
+            add_artefact()
+
+        elif choice == "2":
+            view_all_artefacts()
+
+        elif choice == "3":
+            search_artefact()
+
+        elif choice == "4":
+            update_artefact()
+
+        elif choice == "5":
+            count_total_artefacts()
+
+        elif choice == "6":
+            view_available_artefacts()
+
+        elif choice == "7":
+            search_by_category()
+
+        elif choice == "8":
+            search_by_location()
+
+        elif choice == "9":
+            view_damaged_artefacts()
+
+        elif choice == "10":
+            print("Thank you for using the LHC Artefact Management System.")
+            time.sleep(2)
+            sys.exit()
+
+        else:
+            print("Invalid choice. Please try again.")
+            time.sleep(2)
+
+
+# Start the program
+if __name__ == "__main__":
+    main()
